@@ -1,5 +1,5 @@
 export class ship {
-    constructor(name, length) {
+    constructor(name, length, hitCount) {
         this.name = name;
         this.length = length;
         this.hitCount = hitCount;
@@ -20,3 +20,5 @@ ship.isHit = function () {
         console.log("Your ship has sunk");
     }
 }
+
+// module.exports = ship;
