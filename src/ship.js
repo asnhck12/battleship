@@ -1,4 +1,4 @@
-export class ship {
+export class Ship {
     constructor(name, length, hitCount) {
         this.name = name;
         this.length = length;
@@ -6,18 +6,9 @@ export class ship {
     }
 }
 
-ship.isSunk = function (length, hitCount) {
+export function isSunk (length, hitCount) {
     if (hitCount === length) {
         return true;
-    }
-}
-
-ship.isHit = function () {
-    if (ship.isSunk = false) {
-        hitCount++;
-    }
-    else {
-        console.log("Your ship has sunk");
     }
 }
 
