@@ -6,6 +6,7 @@
 import { placeShip } from './gameboard';
 import { Ship } from './ship';
 import { receiveAttack } from './gameboard';
+import { allSunk } from './ship';
 
 const carrier = new Ship("carrier", 5, 0);
 const battleship = new Ship("battleship", 4, 0);
@@ -69,33 +70,33 @@ const destroyer = new Ship("destroyer", 2, 0);
 //     expect(placeShip(8, 0, cruiser, "horizontal")).toEqual("out of bounds");
 // })
 
-var placedShipExample = 
-[
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'B','H', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O']
-]
+// var placedShipExample = 
+// [
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'B','H', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O']
+// ]
 
-var placedShipExampleMissed = 
-[
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'X', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'B','B', 'B', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
-    ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O']
-]
+// var placedShipExampleMissed = 
+// [
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'X', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'B','B', 'B', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O'],
+//     ['O', 'O', 'O', 'O','O', 'O', 'O', 'O','O', 'O']
+// ]
 
 // test('Testing ship being hit and the right hitcount', () => {
 //     placeShip(3, 2, destroyer, "horizontal");
@@ -112,9 +113,39 @@ var placedShipExampleMissed =
 //     expect(missedRecord[0].position).toEqual({"X":1,"Y":1})
 // })
 
-test('The ship has sunk', () => {
-    placeShip(5, 2, destroyer, "horizontal");
-    receiveAttack(5,2);
+// test('The ship has sunk', () => {
+//     // placeShip(5, 2, destroyer, "horizontal");
+//     // receiveAttack(3,2);
+//     // const result = receiveAttack(6,2);
+//     expect(receiveAttack(3,2)).toEqual('Your ship has sunk');
+// })
+
+const testArray = [
+    {
+      shipDetails: { name: 'destroyer', length: 2, hitCount: 2 },
+      positions: [ [Object], [Object] ]
+    },
+    {
+      shipDetails: { name: 'cruiser', length: 3, hitCount: 3 },
+      positions: [ [Object], [Object], [Object] ]
+    },
+    {
+      shipDetails: { name: 'submarine', length: 3, hitCount: 3 },
+      positions: [ [Object], [Object], [Object], [Object], [Object] ]
+    },
+    {
+        shipDetails: { name: 'battleship', length: 4, hitCount: 4 },
+        positions: [ [Object], [Object], [Object] ]
+      },
+      {
+        shipDetails: { name: 'carrier', length: 5, hitCount: 5 },
+        positions: [ [Object], [Object], [Object], [Object], [Object] ]
+      }
+  ]
+
+test('All the ships have sunk', () => {
+    // placeShip(5, 2, destroyer, "horizontal");
+    // receiveAttack(3,2);
     // const result = receiveAttack(6,2);
-    expect(receiveAttack(6,2)).toEqual('Your ship has sunk');
+    expect(allSunk(testArray)).toEqual("All your ships have sunk!");
 })
