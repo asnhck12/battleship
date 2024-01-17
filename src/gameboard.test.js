@@ -14,6 +14,21 @@ const cruiser = new Ship("cruiser", 3, 0);
 const submarine = new Ship("submarine", 3, 0);
 const destroyer = new Ship("destroyer", 2, 0);
 
+//Place all ships for both player and cpu on two different gameboards
+test('All ships placed without any boats overlapping', () => {
+    expect(shipPlacing()).toEqual(/*number of 'B' on the grid*/);
+})
+
+test('Two gameboards with all ships', () => {
+    expect(/*number of shipPlacing outcomes*/).toEqual(2);
+})
+
+
+
+
+
+
+
 // var placedShip = 
 // [
 //     ["O", "O", "O", "O","O", "O", "O", "O","O", "O"],
@@ -57,7 +72,6 @@ const destroyer = new Ship("destroyer", 2, 0);
 // test('Placing ships in specific coordinates', () => { 
 //     expect(placeShip(3, 2, destroyer, "horizontal")).toEqual(placedShip);
 // })
-
 // test('Placing ships in specific coordinates 2', () => {
 //     expect(placeShip(2, 4, submarine, "vertical")).toEqual(placedShip2);
 // })
@@ -120,32 +134,32 @@ const destroyer = new Ship("destroyer", 2, 0);
 //     expect(receiveAttack(3,2)).toEqual('Your ship has sunk');
 // })
 
-const testArray = [
-    {
-      shipDetails: { name: 'destroyer', length: 2, hitCount: 2 },
-      positions: [ [Object], [Object] ]
-    },
-    {
-      shipDetails: { name: 'cruiser', length: 3, hitCount: 3 },
-      positions: [ [Object], [Object], [Object] ]
-    },
-    {
-      shipDetails: { name: 'submarine', length: 3, hitCount: 3 },
-      positions: [ [Object], [Object], [Object], [Object], [Object] ]
-    },
-    {
-        shipDetails: { name: 'battleship', length: 4, hitCount: 4 },
-        positions: [ [Object], [Object], [Object] ]
-      },
-      {
-        shipDetails: { name: 'carrier', length: 5, hitCount: 5 },
-        positions: [ [Object], [Object], [Object], [Object], [Object] ]
-      }
-  ]
+// const testArray = [
+//     {
+//       shipDetails: { name: 'destroyer', length: 2, hitCount: 2 },
+//       positions: [ [Object], [Object] ]
+//     },
+//     {
+//       shipDetails: { name: 'cruiser', length: 3, hitCount: 3 },
+//       positions: [ [Object], [Object], [Object] ]
+//     },
+//     {
+//       shipDetails: { name: 'submarine', length: 3, hitCount: 3 },
+//       positions: [ [Object], [Object], [Object], [Object], [Object] ]
+//     },
+//     {
+//         shipDetails: { name: 'battleship', length: 4, hitCount: 4 },
+//         positions: [ [Object], [Object], [Object] ]
+//       },
+//       {
+//         shipDetails: { name: 'carrier', length: 5, hitCount: 5 },
+//         positions: [ [Object], [Object], [Object], [Object], [Object] ]
+//       }
+//   ]
 
-test('All the ships have sunk', () => {
-    // placeShip(5, 2, destroyer, "horizontal");
-    // receiveAttack(3,2);
-    // const result = receiveAttack(6,2);
-    expect(allSunk(testArray)).toEqual("All your ships have sunk!");
-})
+// test('All the ships have sunk', () => {
+//     // placeShip(5, 2, destroyer, "horizontal");
+//     // receiveAttack(3,2);
+//     // const result = receiveAttack(6,2);
+//     expect(allSunk(testArray)).toEqual("All your ships have sunk!");
+// })

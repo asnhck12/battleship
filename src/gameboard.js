@@ -1,24 +1,18 @@
 // const { ship } = require("./ship");
 
-import { allSunk } from './ship.js';
+// import { allSunk } from './ship.js';
 
 // import { isSunk } from './ship.js';
 
 //node
-// const { Ship } = await import('./ship.js');
-// const { isSunk } = await import('./ship.js');
-// const { allSunk } = await import('./ship.js')
+const { Ship } = await import('./ship.js');
+const { isSunk } = await import('./ship.js');
+const { allSunk } = await import('./ship.js')
 
 //jest
-import { Ship } from './ship';
-import { isSunk } from './ship';
+// import { Ship } from './ship';
+// import { isSunk } from './ship';
 // import { allSunk } from './ship';
-
-const carrier = new Ship("carrier", 5, 0);
-const battleship = new Ship("battleship", 4, 0);
-const cruiser = new Ship("cruiser", 3, 0);
-const submarine = new Ship("submarine", 3, 0);
-const destroyer = new Ship("destroyer", 2, 0);
 
 const battleFieldGrid = createGrid();
 const placedShipRecord = [];
@@ -37,7 +31,8 @@ function createGrid() {
 }
 
 //x is vertical and y is horizontal
-export function placeShip(x, y, ship, direction) {
+// export 
+function placeShip(x, y, ship, direction) {
     const maxShipPlacement = 10 - ship.length;
     const existingRecord = placedShipRecord.find(shipArray => shipArray.shipDetails.name === ship.name
          && shipArray.positions.some(position => position.X === x && position.Y === y));
@@ -90,7 +85,8 @@ export function placeShip(x, y, ship, direction) {
     }
 }
 
-export function receiveAttack(x,y){
+// export 
+function receiveAttack(x,y){
     const shipHit = placedShipRecord.find(ship => {
         return ship.positions.some(position => position.X === x && position.Y === y);});
     
@@ -108,5 +104,35 @@ export function receiveAttack(x,y){
         {position: {X: x, Y: y}});
         battleFieldGrid[y][x]='X';        
     }
-    return [battleFieldGrid, placedShipRecord, missedHitRecord];
+    console.log(battleFieldGrid);
+    // return [battleFieldGrid];
+}
+
+const carrier = new Ship("carrier", 5, 0);
+const battleship = new Ship("battleship", 4, 0);
+const cruiser = new Ship("cruiser", 3, 0);
+const submarine = new Ship("submarine", 3, 0);
+const destroyer = new Ship("destroyer", 2, 0);
+
+allShips = [carrier, battleship,cruiser,submarine,destroyer];
+
+// export 
+function placingShips() {
+    // for (const ship of allShips) 
+    for (let i=0; i < allShips.length; i++) {
+        const currentShip = allShips[i].name;
+        const randomY = Math.floor(Math.random() * 10);
+        const randomX = Math.floor(Math.random() * 10);
+        const randDirection = Math.floor(Math.random() * 3);
+        var direction = "";
+        if (randDirection === 0) {
+            direction = "vertical";
+        }
+        else {direction = "horizontal"};
+        console.log ("x " + randomY);
+        console.log ("y " + randomX);
+        console.log ("ship " + currentShip);
+        console.log ("direction " + direction);
+        placeShip(randomX,randomY,currentShip,direction);
+    }
 }
