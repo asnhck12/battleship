@@ -3,25 +3,30 @@
 // import { placeShip } from './gameboard'
 // import { ship } from './ship';
 
-import { placeShip } from './gameboard';
-import { Ship } from './ship';
-import { receiveAttack } from './gameboard';
-import { allSunk } from './ship';
+// import { placeShip, placingShips } from './gameboard';
+// import { Ship } from './ship';
+// import { receiveAttack } from './gameboard';
+// import { allSunk } from './ship';
+// import { createGrid } from './gameboard';
 
-const carrier = new Ship("carrier", 5, 0);
-const battleship = new Ship("battleship", 4, 0);
-const cruiser = new Ship("cruiser", 3, 0);
-const submarine = new Ship("submarine", 3, 0);
-const destroyer = new Ship("destroyer", 2, 0);
 
-//Place all ships for both player and cpu on two different gameboards
-test('All ships placed without any boats overlapping', () => {
-    expect(shipPlacing()).toEqual(/*number of 'B' on the grid*/);
-})
+const { battleFieldGrid, placedShipRecord, createGrid, placeShip, placingShips } = require('./gameboard');
 
-test('Two gameboards with all ships', () => {
-    expect(/*number of shipPlacing outcomes*/).toEqual(2);
-})
+
+test('Counts the number of ships placed on the board', () => {
+    // const result = placingShips();
+    const grid = placingShips();
+
+    // Count the number of 'B' on the board
+    const shipCount = grid.flat().filter(cell => cell === 'B').length;
+    // const shipCount = battleFieldGrid.flat().filter(cell => cell === 'B').length;
+    // const countBs = battleFieldGrid.reduce((acc, row) => acc + row.filter(cell => cell === 'B').length, 0);
+
+    expect(shipCount).toBe(17);
+});
+// test('Two gameboards with all ships', () => {
+//     expect(/*number of shipPlacing outcomes*/).toEqual(2);
+// })
 
 
 

@@ -1,24 +1,26 @@
-// const { ship } = require("./ship");
-
-// import { allSunk } from './ship.js';
-
-// import { isSunk } from './ship.js';
-
 //node
-const { Ship } = await import('./ship.js');
-const { isSunk } = await import('./ship.js');
-const { allSunk } = await import('./ship.js')
+// const { Ship } = await import('./ship.js');
+// const { isSunk } = await import('./ship.js');
+// const { allSunk } = await import('./ship.js')
 
 //jest
-// import { Ship } from './ship';
-// import { isSunk } from './ship';
-// import { allSunk } from './ship';
+import { Ship } from './ship';
+import { isSunk } from './ship';
+import { allSunk } from './ship';
 
 const battleFieldGrid = createGrid();
 const placedShipRecord = [];
 const missedHitRecord = [];
 
-function createGrid() {
+const carrier = new Ship("carrier", 5, 0);
+const battleship = new Ship("battleship", 4, 0);
+const cruiser = new Ship("cruiser", 3, 0);
+const submarine = new Ship("submarine", 3, 0);
+const destroyer = new Ship("destroyer", 2, 0);
+
+const allShips = [carrier,battleship,cruiser,submarine,destroyer];
+
+export function createGrid() {
     const grid = [];
     for (let i=0; i < 10; i++){
         const row = [];
@@ -31,69 +33,50 @@ function createGrid() {
 }
 
 //x is vertical and y is horizontal
-// export 
-function placeShip(x, y, ship, direction) {
-    const maxShipPlacement = 10 - ship.length;
-    const existingRecord = placedShipRecord.find(shipArray => shipArray.shipDetails.name === ship.name
-         && shipArray.positions.some(position => position.X === x && position.Y === y));
-    
+export function placeShip(x, y, ship, direction) {
+    const shipEndX = x + ship.size;
+    const shipEndY = y + ship.size;
+
     if (direction === "vertical") {
-        if (y <= maxShipPlacement){
-            const shipEnd = y + ship.length;
             const shipPositions = [];
 
-            for (let b=y; b < shipEnd; b++){
+            for (let b=y; b < shipEndY; b++){
                 battleFieldGrid[b][x] = "B";
                 shipPositions.push({ X: x, Y: b });
             }
-            if (existingRecord) {
-                console.log("The ship has already been placed");
-            } else {
                 placedShipRecord.push({
-                    shipDetails: { name: ship.name, length: ship.length, hitCount: ship.hitCount },
+                    shipDetails: { name: ship.name, length: ship.size, hitCount: ship.hitCount },
                     positions: shipPositions
                 });
-            }
+                console.log(battleFieldGrid);
             return battleFieldGrid;
-        }
-        else {return "out of bounds"};
     }
-
     else if (direction === "horizontal") {
-        if (x <= maxShipPlacement){
-            const shipEnd = x + ship.length;
             const shipPositions = [];
 
-            for (let b=x; b < shipEnd; b++){
+            for (let b=x; b < shipEndX; b++){
                 battleFieldGrid[y][b] = "B";
                 shipPositions.push({ X: b, Y: y });
             }
-            if (existingRecord) {
-                console.log("The ship has already been placed");
-            } else {
                 placedShipRecord.push({
-                    shipDetails: { name: ship.name, length: ship.length, hitCount: ship.hitCount },
+                    shipDetails: { name: ship.name, length: ship.size, hitCount: ship.hitCount },
                     positions: shipPositions
                 });
-            }
+                console.log(battleFieldGrid);
             return battleFieldGrid;
-        } else {
-            return "Out of bounds";
-        }
     } else {
         return "Invalid direction";
     }
 }
 
-// export 
-function receiveAttack(x,y){
+export function receiveAttack(x,y){
     const shipHit = placedShipRecord.find(ship => {
         return ship.positions.some(position => position.X === x && position.Y === y);});
     
     if (shipHit) {
         shipHit.shipDetails.hitCount++;
         battleFieldGrid[y][x]='H';
-        const currentLength = shipHit.shipDetails.length;
+        const currentLength = shipHit.shipDetails.size;
         const currentCount = shipHit.shipDetails.hitCount;
         if (isSunk(currentLength,currentCount)) {
             return "Your ship has sunk";
@@ -104,35 +87,56 @@ function receiveAttack(x,y){
         {position: {X: x, Y: y}});
         battleFieldGrid[y][x]='X';        
     }
-    console.log(battleFieldGrid);
-    // return [battleFieldGrid];
+    return [battleFieldGrid];
 }
 
-const carrier = new Ship("carrier", 5, 0);
-const battleship = new Ship("battleship", 4, 0);
-const cruiser = new Ship("cruiser", 3, 0);
-const submarine = new Ship("submarine", 3, 0);
-const destroyer = new Ship("destroyer", 2, 0);
-
-allShips = [carrier, battleship,cruiser,submarine,destroyer];
-
-// export 
-function placingShips() {
-    // for (const ship of allShips) 
+export function placingShips() {
     for (let i=0; i < allShips.length; i++) {
-        const currentShip = allShips[i].name;
-        const randomY = Math.floor(Math.random() * 10);
-        const randomX = Math.floor(Math.random() * 10);
-        const randDirection = Math.floor(Math.random() * 3);
+        const currentShip = allShips[i];
+        const maxShipPlacement = 10 - currentShip.size;
         var direction = "";
-        if (randDirection === 0) {
-            direction = "vertical";
-        }
-        else {direction = "horizontal"};
-        console.log ("x " + randomY);
-        console.log ("y " + randomX);
-        console.log ("ship " + currentShip);
-        console.log ("direction " + direction);
+        let existingRecord;
+        let randPositions = [];
+       
+        const randDirection = Math.floor(Math.random() * 2);
+
+        let randomY;
+        let randomX;
+
+        do {
+            if (randDirection === 0) {
+                direction = "vertical";
+                randomY = Math.floor(Math.random() * maxShipPlacement);
+                randomX = Math.floor(Math.random() * 10);
+                for (let j = 0; j < currentShip.size; j++) {
+                    const posY = randomY + j;
+                    console.log("random Y: " + randomY);
+                    randPositions.push({ X: randomX, Y: posY });
+                }
+            }
+            else {
+                direction = "horizontal";
+                randomX = Math.floor(Math.random() * maxShipPlacement);
+                randomY = Math.floor(Math.random() * 10);
+                for (let k = 0; k < currentShip.size; k++) {
+                    const posX = randomX + k;
+                    console.log("random X: " + randomX);
+                    randPositions.push({ X: posX, Y: randomY });
+                }
+            };
+            
+            console.log("random positions: " + randPositions);
+
+            // for (let p = 0; p < randPositions.length; p++)
+            // {
+                // existingRecord = placedShipRecord.some(shipArray => shipArray.positions.some(position => position.X === Xpos && position.Y === Ypos));
+
+                existingRecord = randPositions.some(position => {return placedShipRecord.some(shipArray =>shipArray.positions.some(p => p.X === position.X && p.Y === position.Y))})
+            // };
+                   
+        } while (existingRecord);
+
         placeShip(randomX,randomY,currentShip,direction);
     }
+    return battleFieldGrid;
 }
