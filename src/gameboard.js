@@ -1,16 +1,16 @@
 //node
-// const { Ship } = await import('./ship.js');
-// const { isSunk } = await import('./ship.js');
-// const { allSunk } = await import('./ship.js')
+const { Ship } = await import('./ship.js');
+const { isSunk } = await import('./ship.js');
+const { allSunk } = await import('./ship.js')
 
 //jest
-import { Ship } from './ship';
-import { isSunk } from './ship';
-import { allSunk } from './ship';
+// import { Ship } from './ship';
+// import { isSunk } from './ship';
+// import { allSunk } from './ship';
 
-const battleFieldGrid = createGrid();
-const placedShipRecord = [];
-const missedHitRecord = [];
+// const battleShipGrid = createGrid();
+// const placedShipRecord = [];
+// const missedHitRecord = [];
 
 const carrier = new Ship("carrier", 5, 0);
 const battleship = new Ship("battleship", 4, 0);
@@ -33,7 +33,7 @@ export function createGrid() {
 }
 
 //x is vertical and y is horizontal
-export function placeShip(x, y, ship, direction) {
+export function placeShip(x, y, ship, direction, battleShipGrid, placedShipRecord) {
     const shipEndX = x + ship.size;
     const shipEndY = y + ship.size;
 
@@ -41,56 +41,59 @@ export function placeShip(x, y, ship, direction) {
             const shipPositions = [];
 
             for (let b=y; b < shipEndY; b++){
-                battleFieldGrid[b][x] = "B";
+                battleShipGrid[b][x] = "B";
                 shipPositions.push({ X: x, Y: b });
             }
                 placedShipRecord.push({
                     shipDetails: { name: ship.name, length: ship.size, hitCount: ship.hitCount },
                     positions: shipPositions
                 });
-                console.log(battleFieldGrid);
-            return battleFieldGrid;
+            return battleShipGrid;
     }
     else if (direction === "horizontal") {
             const shipPositions = [];
 
             for (let b=x; b < shipEndX; b++){
-                battleFieldGrid[y][b] = "B";
+                battleShipGrid[y][b] = "B";
                 shipPositions.push({ X: b, Y: y });
             }
                 placedShipRecord.push({
                     shipDetails: { name: ship.name, length: ship.size, hitCount: ship.hitCount },
                     positions: shipPositions
                 });
-                console.log(battleFieldGrid);
-            return battleFieldGrid;
+            return battleShipGrid;
     } else {
         return "Invalid direction";
     }
 }
 
-export function receiveAttack(x,y){
+export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
     const shipHit = placedShipRecord.find(ship => {
         return ship.positions.some(position => position.X === x && position.Y === y);});
     
     if (shipHit) {
         shipHit.shipDetails.hitCount++;
-        battleFieldGrid[y][x]='H';
+        battleShipGrid[y][x]='H';
         const currentLength = shipHit.shipDetails.size;
         const currentCount = shipHit.shipDetails.hitCount;
-        if (isSunk(currentLength,currentCount)) {
+        if (isSunk(currentLength,currentCount,allShips)) {
             return "Your ship has sunk";
-        };
+        }
+        else {
+            return "You've got a hit!"
+        }
     }
     else {
-        missedHitRecord.push (
-        {position: {X: x, Y: y}});
-        battleFieldGrid[y][x]='X';        
+        battleShipGrid[y][x]='X';
+        return "You've missed";
+                
     }
-    return [battleFieldGrid];
 }
 
-export function placingShips() {
+export function placingShips(battleShipGrid) {
+    const placedShipRecord = [];
+    let loopCounter = 0;
+
     for (let i=0; i < allShips.length; i++) {
         const currentShip = allShips[i];
         const maxShipPlacement = 10 - currentShip.size;
@@ -110,7 +113,6 @@ export function placingShips() {
                 randomX = Math.floor(Math.random() * 10);
                 for (let j = 0; j < currentShip.size; j++) {
                     const posY = randomY + j;
-                    console.log("random Y: " + randomY);
                     randPositions.push({ X: randomX, Y: posY });
                 }
             }
@@ -120,23 +122,21 @@ export function placingShips() {
                 randomY = Math.floor(Math.random() * 10);
                 for (let k = 0; k < currentShip.size; k++) {
                     const posX = randomX + k;
-                    console.log("random X: " + randomX);
                     randPositions.push({ X: posX, Y: randomY });
                 }
             };
-            
-            console.log("random positions: " + randPositions);
 
-            // for (let p = 0; p < randPositions.length; p++)
-            // {
-                // existingRecord = placedShipRecord.some(shipArray => shipArray.positions.some(position => position.X === Xpos && position.Y === Ypos));
-
+                          
                 existingRecord = randPositions.some(position => {return placedShipRecord.some(shipArray =>shipArray.positions.some(p => p.X === position.X && p.Y === position.Y))})
-            // };
+
+                loopCounter++;
+                if (loopCounter > 1000) {
+                    console.error("Infinite loop detected. Breaking out.");
+                    break; }
                    
         } while (existingRecord);
 
-        placeShip(randomX,randomY,currentShip,direction);
+        placeShip(randomX,randomY,currentShip,direction, battleShipGrid, placedShipRecord);
     }
-    return battleFieldGrid;
+    return {battleShipGrid,placedShipRecord};
 }
