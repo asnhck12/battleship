@@ -28,12 +28,6 @@ test('Counts the number of ships placed on the board', () => {
 //     expect(/*number of shipPlacing outcomes*/).toEqual(2);
 // })
 
-
-
-
-
-
-
 // var placedShip = 
 // [
 //     ["O", "O", "O", "O","O", "O", "O", "O","O", "O"],

@@ -74,9 +74,9 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
     if (shipHit) {
         shipHit.shipDetails.hitCount++;
         battleShipGrid[y][x]='H';
-        const currentLength = shipHit.shipDetails.size;
+        const currentLength = shipHit.shipDetails.length;
         const currentCount = shipHit.shipDetails.hitCount;
-        if (isSunk(currentLength,currentCount,allShips)) {
+        if (isSunk(currentLength,currentCount,placedShipRecord)) {
             return "Your ship has sunk";
         }
         else {
@@ -99,14 +99,15 @@ export function placingShips(battleShipGrid) {
         const maxShipPlacement = 10 - currentShip.size;
         var direction = "";
         let existingRecord;
+        let shipCount;
         let randPositions = [];
        
-        const randDirection = Math.floor(Math.random() * 2);
-
         let randomY;
         let randomX;
 
         do {
+            const randDirection = Math.floor(Math.random() * 2);
+
             if (randDirection === 0) {
                 direction = "vertical";
                 randomY = Math.floor(Math.random() * maxShipPlacement);
@@ -125,16 +126,18 @@ export function placingShips(battleShipGrid) {
                     randPositions.push({ X: posX, Y: randomY });
                 }
             };
-
                           
                 existingRecord = randPositions.some(position => {return placedShipRecord.some(shipArray =>shipArray.positions.some(p => p.X === position.X && p.Y === position.Y))})
 
+                shipCount = randPositions.flat().filter(cell => cell === 'B').length;
+                //  shipCountLimit = shipCount != 17;
+
                 loopCounter++;
-                if (loopCounter > 1000) {
+                if (loopCounter > 5000) {
                     console.error("Infinite loop detected. Breaking out.");
                     break; }
                    
-        } while (existingRecord);
+        } while (existingRecord && (shipCount = 17));
 
         placeShip(randomX,randomY,currentShip,direction, battleShipGrid, placedShipRecord);
     }

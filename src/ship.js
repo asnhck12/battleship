@@ -6,17 +6,21 @@ export class Ship {
     }
 }
 
-export function allSunk (shipRecord) {
-    for (let i=0;i < shipRecord.length; i++) {
-        if (i === 4) {
+let totalSunk = 0;
+
+export function allSunk (totalSunk) {
+    // for (let i=0;i < shipRecord.length; i++) {
+    //     shipRecord.hitCount
+        if (totalSunk === 5) {
             console.log( "All your ships have sunk!");
         }
     }
-}
+// }
 
 export function isSunk (length, hitCount, shipRecord) {
     if (hitCount === length) {
-        allSunk(shipRecord);
+        totalSunk++;
+        allSunk(totalSunk);
         // console.log("ship sunk");
         return true;
     }
