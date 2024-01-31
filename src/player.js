@@ -59,15 +59,38 @@ function playerTurns(x,y,player) {
         cpuResult = turn(x,y,cpu,cpuShipPlacements,cpuAttacks);
         console.log(cpuResult);
         if (cpuResult === "All your ships have sunk!") { 
-            return "You have won!";
+            return "Player 1 wins!";
         }
+        return 'cpu';
     }
     else if (player === 'cpu'){
         console.log("cpus's turn!");
         player1Result = turn(x,y,player1,player1ShipPlacements,player1Attacks);
         console.log(player1Result);
         if (player1Result === "All your ships have sunk!") { 
-            return "You have won!";
+            return "CPU wins!";
+        }
+        return 'player1';
+    }
+}
+
+function gameProcess() {
+    // let x = prompt("Enter X");
+    // let y = prompt("Enter Y");
+    let currentPlayer = 'player1';
+
+    while (currentPlayer != "CPU wins!" || "Player 1 wins!") {
+        if (currentPlayer === 'player1') {
+            currentPlayer = playerTurns(x,y,currentPlayer);
+            
+        }
+        else if (currentPlayer === 'cpu') {
+            currentPlayer = playerTurns(x,y,currentPlayer);
+        }
+        else {
+            console.log("Player doesn't exist");
         }
     }
 }
+
+gameProcess();
