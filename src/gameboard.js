@@ -67,6 +67,8 @@ export function placeShip(x, y, ship, direction, battleShipGrid, placedShipRecor
     }
 }
 
+let totalSunk = 0;
+
 export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
     const shipHit = placedShipRecord.find(ship => {
         return ship.positions.some(position => position.X === x && position.Y === y);});
@@ -77,7 +79,14 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
         const currentLength = shipHit.shipDetails.length;
         const currentCount = shipHit.shipDetails.hitCount;
         if (isSunk(currentLength,currentCount,placedShipRecord)) {
+            totalSunk++;
+            console.log(totalSunk);
+            if (allSunk(totalSunk)) {
+                return "All your ships have sunk!";
+            }
+            else {
             return "Your ship has sunk";
+            }
         }
         else {
             return "You've got a hit!"

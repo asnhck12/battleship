@@ -74,21 +74,56 @@ function playerTurns(x,y,player) {
     }
 }
 
+function cpuAttackLocation() {
+    let setPairs = [];
+
+    do {
+    attackY = Math.floor(Math.random() * 10);
+    attackX = Math.floor(Math.random() * 10);
+
+    existingPair = player1Attacks.find(position => position.X === attackX && position.Y === attackY);
+    // existingRecord = randPositions.some(position => {return placedShipRecord.some(shipArray => shipArray.positions.some(p => p.X === position.X && p.Y === position.Y))})
+
+    
+
+    if (!existingPair) {
+        setPairs.push({ X: attackX, Y: attackY });
+    }
+
+} while (existingPair);
+
+return {attackX, attackY};
+
+}
+
+let i = 0;
+
 function gameProcess() {
     // let x = prompt("Enter X");
     // let y = prompt("Enter Y");
     let currentPlayer = 'player1';
+    
 
-    while (currentPlayer != "CPU wins!" || "Player 1 wins!") {
+    while (currentPlayer != ("CPU wins!" || "Player 1 wins!")) {
         if (currentPlayer === 'player1') {
-            currentPlayer = playerTurns(x,y,currentPlayer);
-            
+            // currentPlayer = playerTurns(x,y,currentPlayer);
+            currentPlayer = 'cpu';
         }
-        else if (currentPlayer === 'cpu') {
+        else 
+        if (currentPlayer === 'cpu') {
+            const CALresult = cpuAttackLocation();
+            const x = CALresult.attackX;
+            const y = CALresult.attackY;
             currentPlayer = playerTurns(x,y,currentPlayer);
+            console.log(i);
+            i++;
+            if (i === 100)  {
+                break;
+            }
         }
         else {
             console.log("Player doesn't exist");
+            break;
         }
     }
 }
