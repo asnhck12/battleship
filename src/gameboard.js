@@ -8,10 +8,6 @@ const { allSunk } = await import('./ship.js')
 // import { isSunk } from './ship';
 // import { allSunk } from './ship';
 
-// const battleShipGrid = createGrid();
-// const placedShipRecord = [];
-// const missedHitRecord = [];
-
 const carrier = new Ship("carrier", 5, 0);
 const battleship = new Ship("battleship", 4, 0);
 const cruiser = new Ship("cruiser", 3, 0);
@@ -139,7 +135,6 @@ export function placingShips(battleShipGrid) {
                 existingRecord = randPositions.some(position => {return placedShipRecord.some(shipArray =>shipArray.positions.some(p => p.X === position.X && p.Y === position.Y))})
 
                 shipCount = randPositions.flat().filter(cell => cell === 'B').length;
-                //  shipCountLimit = shipCount != 17;
 
                 loopCounter++;
                 if (loopCounter > 5000) {
