@@ -1,12 +1,12 @@
 //node
-const { Ship } = await import('./ship.js');
-const { isSunk } = await import('./ship.js');
-const { allSunk } = await import('./ship.js')
+// const { Ship } = await import('./ship.js');
+// const { isSunk } = await import('./ship.js');
+// const { allSunk } = await import('./ship.js')
 
 //jest
-// import { Ship } from './ship';
-// import { isSunk } from './ship';
-// import { allSunk } from './ship';
+import { Ship } from './ship';
+import { isSunk } from './ship';
+import { allSunk } from './ship';
 
 const carrier = new Ship("carrier", 5, 0);
 const battleship = new Ship("battleship", 4, 0);

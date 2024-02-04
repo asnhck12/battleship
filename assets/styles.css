@@ -1,0 +1,41 @@
+html, body, #main, #playArea, .boards {
+    height: 100%
+}
+
+#playArea {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+}
+
+.boards {
+    padding: 15%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 0;
+}
+
+.rows {
+    /* height: 100%; */
+    display: flex;
+    flex-direction: row;
+    border: 1px solid green;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+}
+
+.columns {
+    border: 1px solid blue;
+    width: 10%; 
+}
+
+/* .columns {
+} */
+
+#B {
+    background-color: blue;
+}

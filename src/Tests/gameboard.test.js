@@ -10,7 +10,7 @@
 // import { createGrid } from './gameboard';
 
 
-const { battleShipGrid, placedShipRecord, createGrid, placeShip, placingShips } = require('./gameboard');
+const { battleShipGrid, placedShipRecord, createGrid, placeShip, placingShips } = require('../gameboard');
 
 
 test('Counts the number of ships placed on the board', () => {

@@ -1,9 +1,9 @@
 // import { placeShip } from './gameboard';
-import { Ship } from './ship';
-import { receiveAttack } from './gameboard';
+import { Ship } from '../ship';
+import { receiveAttack } from '../gameboard';
 
-import {player, turn} from './player';
-import { createGrid, placeShip } from './gameboard';
+import {player, turn} from '../player';
+import { createGrid, placeShip } from '../gameboard';
 
 
 const carrier = new Ship("carrier", 5, 0);
