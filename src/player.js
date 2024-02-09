@@ -27,16 +27,16 @@ export function player() {
     return {player1Board,cpuBoard,player1Ships,cpuShips};
 }
 
-// const players = player();
+const players = player();
 
-// const player1 = players.player1Board;
-// const cpu = players.cpuBoard;
+const player1 = players.player1Board;
+const cpu = players.cpuBoard;
 
-// const player1ShipPlacements = players.player1Ships;
-// const cpuShipPlacements = players.cpuShips;
+const player1ShipPlacements = players.player1Ships;
+const cpuShipPlacements = players.cpuShips;
 
-// const player1Attacks = [];
-// const cpuAttacks = [];
+const player1Attacks = [];
+const cpuAttacks = [];
 
 //the player would take a turn, and it would either hit or miss
 export function turn(x,y,playerBoard,shipPlacements,attacks) {

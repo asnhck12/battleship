@@ -1,3 +1,4 @@
-import { battleshipMainGridGenerated } from "./playerTurns";
+import { battleshipMainGridGenerated, gameProcess } from "./playerTurns";
 
 battleshipMainGridGenerated();
+gameProcess();
