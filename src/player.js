@@ -56,7 +56,8 @@ export function playerTurns(x,y,player) {
     if (player === 'player1'){
         console.log("Player 1s turn!");
         let cpuResult = turn(x,y,cpu,cpuShipPlacements,cpuAttacks);
-        console.log(cpuResult);
+        console.log("p1 enemy grid: " + cpu);
+        console.log("PLayer 1 outcome: " + cpuResult);
         if (cpuResult === "All your ships have sunk!") { 
             return "Player 1 wins!";
         }
@@ -65,7 +66,8 @@ export function playerTurns(x,y,player) {
     else if (player === 'cpu'){
         console.log("cpus's turn!");
         let player1Result = turn(x,y,player1,player1ShipPlacements,player1Attacks);
-        console.log(player1Result);
+        console.log("cpu enemy grid: " + player1);
+        console.log("cpu outcome: " + player1Result);
         if (player1Result === "All your ships have sunk!") { 
             return "CPU wins!";
         }
@@ -73,63 +75,30 @@ export function playerTurns(x,y,player) {
     }
 }
 
-//generates cpu attack
-// export function cpuAttackLocation() {
-//     let setPairs = [];
+//Create grids
+export function battleshipMainGrid (boards,name) {
+    const newGridSection = document.createElement("div");
+    newGridSection.setAttribute("id",name);
+    newGridSection.setAttribute("class","boards");
+    playArea.appendChild(newGridSection);
+        for (let i=0; i < 10; i++){
+            const newDivsRows = document.createElement("div");
+            newDivsRows.setAttribute("id","row"+i);
+            newDivsRows.setAttribute("class","rows");
+            // const playArea = document.getElementById("playArea");
+            newGridSection.appendChild(newDivsRows);
+            for (let j=0; j < 10; j++){
+                const newDivsColumns =  document.createElement("div");
+                newDivsColumns.setAttribute("id",boards[i][j]);
+                newDivsColumns.setAttribute("class","columns");
+                newDivsRows.appendChild(newDivsColumns);       
+            }
+        }
+    }
 
-//     do {
-//     attackY = Math.floor(Math.random() * 10);
-//     attackX = Math.floor(Math.random() * 10);
-
-//     existingPair = player1Attacks.find(position => position.X === attackX && position.Y === attackY);    
-
-//     if (!existingPair) {
-//         setPairs.push({ X: attackX, Y: attackY });
-//     }
-
-// } while (existingPair);
-
-// return {attackX, attackY};
-
-// }
-
-//player1 attack location
-function playerAttackLocation(x,y) {
-    return {x,y};
-
+    
+export function battleshipMainGridGenerated() {
+    player();
+    battleshipMainGrid(player1,"board1");
+    battleshipMainGrid(cpu,"board2");
 }
-
-let i = 0;
-
-//turns are looped here
-// export function gameProcess() {
-//     let currentPlayer = 'player1';
-
-//     while (currentPlayer != ("CPU wins!" || "Player 1 wins!")) {
-//         if (currentPlayer === 'player1') {
-//             // playersLocation = playerAttackLocation();
-//             // let x = playersLocation.x;
-//             // let y = playersLocation.y;
-//             let x = 3;
-//             let y = 2;
-//             currentPlayer = playerTurns(x,y,currentPlayer);
-//             currentPlayer = 'cpu';
-//         }
-//         else 
-//         if (currentPlayer === 'cpu') {
-//             const CALresult = cpuAttackLocation();
-//             const x = CALresult.attackX;
-//             const y = CALresult.attackY;
-//             currentPlayer = playerTurns(x,y,currentPlayer);
-//             console.log(i);
-//             i++;
-//             if (i === 100)  {
-//                 break;
-//             }
-//         }
-//         else {
-//             console.log("Player doesn't exist");
-//             break;
-//         }
-//     }
-// }
