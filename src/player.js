@@ -27,17 +27,6 @@ export function player() {
     return {player1Board,cpuBoard,player1Ships,cpuShips};
 }
 
-// const players = player();
-
-// const player1 = players.player1Board;
-// const cpu = players.cpuBoard;
-
-// const player1ShipPlacements = players.player1Ships;
-// const cpuShipPlacements = players.cpuShips;
-
-// const player1Attacks = [];
-// const cpuAttacks = [];
-
 //the player would take a turn, and it would either hit or miss
 export function turn(x,y,playerBoard,shipPlacements,attacks) {
     const existingHit = attacks.find(hits => hits.X === x && hits.Y === y);
@@ -61,7 +50,12 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
         if (cpuResult === "All your ships have sunk!") { 
             return "Player 1 wins!";
         }
-        return 'cpu';
+        if (cpuResult === "Already selected") {
+            return 'player1';
+        }
+        else {
+            return 'cpu';
+        }
     }
     else if (player === 'cpu'){
         console.log("cpus's turn!");
@@ -71,7 +65,12 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
         if (player1Result === "All your ships have sunk!") { 
             return "CPU wins!";
         }
+        if (player1Result === "Already selected") {
+            return 'cpu';
+        }
+        else {
         return 'player1';
+        }
     }
 }
 
@@ -95,9 +94,3 @@ export function battleshipMainGrid (boards,name) {
             }
         }
     }
-
-    
-// export function battleshipMainGridGenerated() {
-//     battleshipMainGrid(player1,"board1");
-//     battleshipMainGrid(cpu,"board2");
-// }
