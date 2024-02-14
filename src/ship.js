@@ -7,7 +7,7 @@ export class Ship {
 }
 
 export function allSunk (totalSunk) {
-        if (totalSunk === 4) {
+        if (totalSunk === 17) {
             return true;
         }
     }

@@ -56,15 +56,15 @@ function player1Turn() {
 
 let i=0;
 
-export async function gameProcess() {
+export async function gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks) {
     let currentPlayer = 'player1';
 
     while (currentPlayer != ("CPU wins!" || "Player 1 wins!")) {
         if (currentPlayer === 'player1') {
             const {x,y} = await player1Turn();
-            currentPlayer = playerTurns(x,y,currentPlayer);
+            currentPlayer = playerTurns(x,y,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
         }
-        
+
         else if (currentPlayer === 'cpu') {
             const cells = document.getElementById("board1");
             const rowsArray = cells.getElementsByClassName("rows");
@@ -83,13 +83,7 @@ export async function gameProcess() {
                 }
                 else { console.log ("Error")};
 
-            currentPlayer = playerTurns(cpux,cpuy,currentPlayer);
-            console.log(i);
-            i++;
-            if (i === 100)  {
-                break;
-            }
-            // return currentPlayer;
+            currentPlayer = playerTurns(cpux,cpuy,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
         }
         else {
             console.log("Player doesn't exist");

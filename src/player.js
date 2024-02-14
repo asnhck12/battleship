@@ -27,16 +27,16 @@ export function player() {
     return {player1Board,cpuBoard,player1Ships,cpuShips};
 }
 
-const players = player();
+// const players = player();
 
-const player1 = players.player1Board;
-const cpu = players.cpuBoard;
+// const player1 = players.player1Board;
+// const cpu = players.cpuBoard;
 
-const player1ShipPlacements = players.player1Ships;
-const cpuShipPlacements = players.cpuShips;
+// const player1ShipPlacements = players.player1Ships;
+// const cpuShipPlacements = players.cpuShips;
 
-const player1Attacks = [];
-const cpuAttacks = [];
+// const player1Attacks = [];
+// const cpuAttacks = [];
 
 //the player would take a turn, and it would either hit or miss
 export function turn(x,y,playerBoard,shipPlacements,attacks) {
@@ -52,7 +52,7 @@ export function turn(x,y,playerBoard,shipPlacements,attacks) {
 }
 
 //For each players turn it returns what happened with missing or hitting
-export function playerTurns(x,y,player) {
+export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks) {
     if (player === 'player1'){
         console.log("Player 1s turn!");
         let cpuResult = turn(x,y,cpu,cpuShipPlacements,cpuAttacks);
@@ -97,8 +97,7 @@ export function battleshipMainGrid (boards,name) {
     }
 
     
-export function battleshipMainGridGenerated() {
-    player();
-    battleshipMainGrid(player1,"board1");
-    battleshipMainGrid(cpu,"board2");
-}
+// export function battleshipMainGridGenerated() {
+//     battleshipMainGrid(player1,"board1");
+//     battleshipMainGrid(cpu,"board2");
+// }
