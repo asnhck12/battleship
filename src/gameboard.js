@@ -14,7 +14,7 @@ const cruiser = new Ship("cruiser", 3, 0);
 const submarine = new Ship("submarine", 3, 0);
 const destroyer = new Ship("destroyer", 2, 0);
 
-const allShips = [carrier,battleship,cruiser,submarine,destroyer];
+const allShips = [destroyer,cruiser,submarine,battleship,carrier];
 
 export function createGrid() {
     const grid = [];
@@ -79,8 +79,6 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
             const totalCount = placedShipRecord.reduce((total,currentShipObject) => {
                 return total + currentShipObject.shipDetails.hitCount;},0);
             console.log("Total hit count" + totalCount);
-            // totalSunk++;
-            // console.log("total sunk: " + totalSunk);
             console.log("placed ship record" + placedShipRecord);
             if (allSunk(totalCount)) {
                 return "All your ships have sunk!";
@@ -142,7 +140,7 @@ export function placingShips(battleShipGrid) {
                 shipCount = randPositions.flat().filter(cell => cell === 'B').length;
 
                 loopCounter++;
-                if (loopCounter > 5000) {
+                if (loopCounter > 10000) {
                     console.error("Infinite loop detected. Breaking out.");
                     break; }
                    

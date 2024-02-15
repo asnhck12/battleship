@@ -55,6 +55,8 @@ function player1Turn() {
         });}
 
 let i=0;
+const startButton = document.getElementById("playButton");
+
 
 export async function gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks) {
     let currentPlayer = 'player1';
@@ -81,11 +83,14 @@ export async function gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlace
                 else if (columnsArray[cpux].id === "O") {
                     columnsArray[cpux].id = "X1";
                 }
-                else { console.log ("Error")};
+                else {};
 
             currentPlayer = playerTurns(cpux,cpuy,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
         }
         else {
-            console.log("Player doesn't exist");
+            startButton.style.display = "block";
             break;
-        }}}
+        }
+    
+    
+    }}

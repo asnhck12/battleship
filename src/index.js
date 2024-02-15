@@ -10,6 +10,8 @@ function battleshipMainGridGenerated(player1,player2) {
     battleshipMainGrid(player2,"board2");
 }
 
+const startButton = document.getElementById("playButton");
+
 playButton.addEventListener("click", function() {
     playArea.innerHTML = "";
     setTimeout(function() {
@@ -25,6 +27,7 @@ playButton.addEventListener("click", function() {
         const cpuAttacks = [];
         battleshipMainGridGenerated(player1,cpu);
         gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
-    }, 10);
+        startButton.style.display = "none";
+    }, 1);
 });
 
