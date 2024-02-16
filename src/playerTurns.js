@@ -5,8 +5,6 @@ import { playerTurns } from './player.js';
 const player1Attacks = [];
 const cpuAttacks = [];
 
-
-// export 
 function cpuAttackLocation() {
     let setPairs = [];
     let existingPair;
