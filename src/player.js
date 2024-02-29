@@ -45,9 +45,8 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
     if (player === 'player1'){
         console.log("Player 1s turn!");
         let cpuResult = turn(x,y,cpu,cpuShipPlacements,cpuAttacks);
-        console.log("p1 enemy grid: " + cpu);
-        console.log("PLayer 1 outcome: " + cpuResult);
-        if (cpuResult === "All your ships have sunk!") { 
+        console.log("P1 result: " + cpuResult);
+        if (cpuResult === "All sunk") { 
             return "Player 1 wins!";
         }
         if (cpuResult === "Already selected") {
@@ -60,12 +59,11 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
     else if (player === 'cpu'){
         console.log("cpus's turn!");
         let player1Result = turn(x,y,player1,player1ShipPlacements,player1Attacks);
-        console.log("cpu enemy grid: " + player1);
-        console.log("cpu outcome: " + player1Result);
-        if (player1Result === "All your ships have sunk!") { 
+        console.log("cpu result: " + player1Result);
+        if (player1Result === "All sunk") { 
             return "CPU wins!";
         }
-        if (player1Result === "Already selected") {
+        else if (player1Result === "Already selected") {
             return 'cpu';
         }
         else {

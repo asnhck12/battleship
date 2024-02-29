@@ -28,6 +28,6 @@ playButton.addEventListener("click", function() {
         battleshipMainGridGenerated(player1,cpu);
         gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
         startButton.style.display = "none";
-    }, 1);
+    }, 10);
 });
 

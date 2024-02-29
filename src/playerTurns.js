@@ -4,6 +4,7 @@ import { playerTurns } from './player.js';
 
 const player1Attacks = [];
 const cpuAttacks = [];
+let gameOver = false; 
 
 function cpuAttackLocation() {
     let setPairs = [];
@@ -27,10 +28,16 @@ return {attackX, attackY};
 
 }
 
+let n=0;
+
 function player1Turn() {
     return new Promise((resolve, reject) => {
+        if (gameOver) return;
+
         const cells = document.getElementById("board2");
         const rowsArray = cells.getElementsByClassName("rows");
+
+        // while (!gameOver) {
 
         for (let i=0; i<10; i++) {
             const currentRow = rowsArray[i];
@@ -41,28 +48,36 @@ function player1Turn() {
                 const y = i;
                 columnsArray[j].addEventListener("click", function() {
                     resolve({x, y});
-                    if (columnsArray[j].id === "B") {
-                        columnsArray[j].id = "H1";}
+                    if (!gameOver){
+                        if (columnsArray[j].id === "B") {
+                            columnsArray[j].id = "H1";}
+                        
                         else if (columnsArray[j].id === "O") {
                             columnsArray[j].id = "X1";
                         }
-                        else { console.log ("Error")};
-                    });
-                }
+                        else {
+                             console.log ("Error")};
+                    }});
+                } 
             }
+        // }
         });}
-
-let i=0;
-const startButton = document.getElementById("playButton");
-
 
 export async function gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks) {
     let currentPlayer = 'player1';
+    gameOver = false;
 
-    while (currentPlayer != ("CPU wins!" || "Player 1 wins!")) {
+    while (!gameOver) {
+        console.log("current player Return: " + currentPlayer)
         if (currentPlayer === 'player1') {
             const {x,y} = await player1Turn();
             currentPlayer = playerTurns(x,y,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
+            console.log("current player1 return 1: " + currentPlayer)
+            
+            // if (currentPlayer.includes("wins")) {
+            //     gameOver = true;
+            //     console.log("gameover: " + gameOver);
+            //     }
         }
 
         else if (currentPlayer === 'cpu') {
@@ -84,11 +99,12 @@ export async function gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlace
                 else {};
 
             currentPlayer = playerTurns(cpux,cpuy,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
+            console.log("current cpu return 2: " + currentPlayer)
         }
-        else {
-            startButton.style.display = "block";
+        else if (currentPlayer.includes("wins")) {
+            gameOver = true;
             break;
         }
-    
-    
-    }}
+    }
+
+}

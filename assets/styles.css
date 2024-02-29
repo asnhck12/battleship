@@ -64,6 +64,7 @@ html, body{
 #bottomSection {
     display: grid;
     align-items: center;
+    text-align: center;
 }
 
 #playButton {
@@ -71,7 +72,7 @@ html, body{
     background-color: white;
     border: 1px black solid;
     font-size: medium;
-    width: 60px;
+    width: 120px;
     height: 30px;
     align-items: center;
 }

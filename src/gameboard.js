@@ -65,6 +65,10 @@ export function placeShip(x, y, ship, direction, battleShipGrid, placedShipRecor
 
 // let totalSunk = 0;
 
+const startButton = document.getElementById("playButton");
+const gameLog = document.getElementById("gameLog");
+
+
 export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
     const shipHit = placedShipRecord.find(ship => {
         return ship.positions.some(position => position.X === x && position.Y === y);});
@@ -78,22 +82,27 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
         if (isSunk(currentLength,currentCount,placedShipRecord)) {
             const totalCount = placedShipRecord.reduce((total,currentShipObject) => {
                 return total + currentShipObject.shipDetails.hitCount;},0);
-            console.log("Total hit count" + totalCount);
-            console.log("placed ship record" + placedShipRecord);
             if (allSunk(totalCount)) {
-                return "All your ships have sunk!";
+                startButton.innerHTML = "Play Again!";
+                startButton.style.display = "block";
+                return "All sunk";
             }
             else {
-            return "Your ship has sunk";
+                console.log("Your " + shipHit.shipDetails.name + " has sunk!");
+                gameLog.innerHTML = "Your " + shipHit.shipDetails.name + " has sunk!";
             }
         }
         else {
-            return "You've got a hit!"
+            console.log("Hit!");
+            gameLog.innerHTML = "Hit!";
+            return "Hit!";
         }
     }
     else {
         battleShipGrid[y][x]='X';
-        return "You've missed";
+        console.log("Missed!");
+        gameLog.innerHTML = "Missed!";
+        return "Missed!"
                 
     }
 }
