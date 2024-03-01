@@ -149,7 +149,7 @@ export function placingShips(battleShipGrid) {
                 shipCount = randPositions.flat().filter(cell => cell === 'B').length;
 
                 loopCounter++;
-                if (loopCounter > 10000) {
+                if (loopCounter > 25000) {
                     console.error("Infinite loop detected. Breaking out.");
                     break; }
                    

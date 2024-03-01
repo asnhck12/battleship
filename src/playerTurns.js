@@ -73,11 +73,6 @@ export async function gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlace
             const {x,y} = await player1Turn();
             currentPlayer = playerTurns(x,y,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
             console.log("current player1 return 1: " + currentPlayer)
-            
-            // if (currentPlayer.includes("wins")) {
-            //     gameOver = true;
-            //     console.log("gameover: " + gameOver);
-            //     }
         }
 
         else if (currentPlayer === 'cpu') {
