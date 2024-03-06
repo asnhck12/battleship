@@ -5,27 +5,30 @@ import { playerTurns } from './player.js';
 const player1Attacks = [];
 const cpuAttacks = [];
 let gameOver = false; 
+let P1turn;
 
 function cpuAttackLocation() {
-    let setPairs = [];
-    let existingPair;
-    let attackX;
-    let attackY;
+    return new Promise((resolve, reject) => {
+        let setPairs = [];
+        let existingPair;
+        let attackX;
+        let attackY;
 
-    do {
-    attackY = Math.floor(Math.random() * 10);
-    attackX = Math.floor(Math.random() * 10);
+        do {
+            attackY = Math.floor(Math.random() * 10);
+            attackX = Math.floor(Math.random() * 10);
 
-    existingPair = player1Attacks.find(position => position.X === attackX && position.Y === attackY);    
+            existingPair = player1Attacks.find(position => position.X === attackX && position.Y === attackY);
 
-    if (!existingPair) {
-        setPairs.push({ X: attackX, Y: attackY });
-    }
+            if (!existingPair) {
+                setPairs.push({ X: attackX, Y: attackY });
+            }
+        } while (existingPair);
 
-} while (existingPair);
-
-return {attackX, attackY};
-
+        setTimeout(() => {
+            resolve({ attackX, attackY });
+        }, 1000);
+    });
 }
 
 let n=0;
@@ -37,8 +40,7 @@ function player1Turn() {
         const cells = document.getElementById("board2");
         const rowsArray = cells.getElementsByClassName("rows");
 
-        // while (!gameOver) {
-
+        
         for (let i=0; i<10; i++) {
             const currentRow = rowsArray[i];
             const columnsArray = currentRow.getElementsByClassName("columns");
@@ -48,7 +50,7 @@ function player1Turn() {
                 const y = i;
                 columnsArray[j].addEventListener("click", function() {
                     resolve({x, y});
-                    if (!gameOver){
+                    if (!gameOver && P1turn){
                         if (columnsArray[j].id === "B") {
                             columnsArray[j].id = "H1";}
                         
@@ -60,46 +62,39 @@ function player1Turn() {
                     }});
                 } 
             }
-        // }
         });}
 
-export async function gameProcess(player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks) {
+export async function gameProcess(player1, cpu, player1ShipPlacements, cpuShipPlacements, player1Attacks, cpuAttacks) {
     let currentPlayer = 'player1';
     gameOver = false;
 
     while (!gameOver) {
+        P1turn = true;
         console.log("current player Return: " + currentPlayer)
-        if (currentPlayer === 'player1') {
-            const {x,y} = await player1Turn();
-            currentPlayer = playerTurns(x,y,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
-            console.log("current player1 return 1: " + currentPlayer)
-        }
-
-        else if (currentPlayer === 'cpu') {
+        if (currentPlayer === 'player1' ) {
+            const { x, y } = await player1Turn(); 
+            currentPlayer = playerTurns(x, y, currentPlayer, player1, cpu, player1ShipPlacements, cpuShipPlacements, player1Attacks, cpuAttacks);
+        } else if (currentPlayer === 'cpu') {
+            P1turn = false;
             const cells = document.getElementById("board1");
             const rowsArray = cells.getElementsByClassName("rows");
-            
-            const CALresult = cpuAttackLocation();
-            const cpux = CALresult.attackX;
-            const cpuy = CALresult.attackY;
 
-            const currentRow = rowsArray[cpuy];
+            const { attackX, attackY } = await cpuAttackLocation();
+
+            const currentRow = rowsArray[attackY];
             const columnsArray = currentRow.getElementsByClassName("columns");
-            
-            if (columnsArray[cpux].id === "B") {
-                columnsArray[cpux].id = "H1";}
-                else if (columnsArray[cpux].id === "O") {
-                    columnsArray[cpux].id = "X1";
-                }
-                else {};
 
-            currentPlayer = playerTurns(cpux,cpuy,currentPlayer,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks);
-            console.log("current cpu return 2: " + currentPlayer)
-        }
-        else if (currentPlayer.includes("wins")) {
+            if (columnsArray[attackX].id === "B") {
+                columnsArray[attackX].id = "H1";
+            } else if (columnsArray[attackX].id === "O") {
+                columnsArray[attackX].id = "X1";
+            } else {};
+
+            currentPlayer = playerTurns(attackX, attackY, currentPlayer, player1, cpu, player1ShipPlacements, cpuShipPlacements, player1Attacks, cpuAttacks);
+
+        } else if (currentPlayer.includes("wins")) {
             gameOver = true;
             break;
         }
     }
-
 }

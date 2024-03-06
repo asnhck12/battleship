@@ -58,6 +58,7 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
     }
     else if (player === 'cpu'){
         console.log("cpus's turn!");
+        // setTimeout(() => {
         let player1Result = turn(x,y,player1,player1ShipPlacements,player1Attacks);
         console.log("cpu result: " + player1Result);
         if (player1Result === "All sunk") { 
@@ -69,6 +70,8 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
         else {
         return 'player1';
         }
+
+    // }, 500);
     }
 }
 
