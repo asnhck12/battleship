@@ -31,7 +31,7 @@ export function player() {
 export function turn(x,y,playerBoard,shipPlacements,attacks,player) {
     const existingHit = attacks.find(hits => hits.X === x && hits.Y === y);
 
-    if (existingHit) {
+    if (!existingHit) {
         return "Already selected";
     }
     else {
@@ -43,9 +43,7 @@ export function turn(x,y,playerBoard,shipPlacements,attacks,player) {
 //For each players turn it returns what happened with missing or hitting
 export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks) {
     if (player === 'player1'){
-        console.log("Player 1s turn!");
         let cpuResult = turn(x,y,cpu,cpuShipPlacements,cpuAttacks,player);
-        console.log("P1 result: " + cpuResult);
         if (cpuResult === "All sunk") { 
             return "Player 1 wins!";
         }
@@ -57,10 +55,7 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
         }
     }
     else if (player === 'cpu'){
-        console.log("cpus's turn!");
-        // setTimeout(() => {
         let player1Result = turn(x,y,player1,player1ShipPlacements,player1Attacks,player);
-        console.log("cpu result: " + player1Result);
         if (player1Result === "All sunk") { 
             return "CPU wins!";
         }
@@ -70,8 +65,6 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
         else {
         return 'player1';
         }
-
-    // }, 500);
     }
 }
 
@@ -85,7 +78,6 @@ export function battleshipMainGrid (boards,name) {
             const newDivsRows = document.createElement("div");
             newDivsRows.setAttribute("id","row"+i);
             newDivsRows.setAttribute("class","rows");
-            // const playArea = document.getElementById("playArea");
             newGridSection.appendChild(newDivsRows);
             for (let j=0; j < 10; j++){
                 const newDivsColumns =  document.createElement("div");

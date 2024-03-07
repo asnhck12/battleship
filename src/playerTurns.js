@@ -27,7 +27,7 @@ function cpuAttackLocation() {
 
         setTimeout(() => {
             resolve({ attackX, attackY });
-        }, 1000);
+        }, 1500);
     });
 }
 
@@ -70,7 +70,6 @@ export async function gameProcess(player1, cpu, player1ShipPlacements, cpuShipPl
 
     while (!gameOver) {
         P1turn = true;
-        console.log("current player Return: " + currentPlayer)
         if (currentPlayer === 'player1' ) {
             const { x, y } = await player1Turn(); 
             currentPlayer = playerTurns(x, y, currentPlayer, player1, cpu, player1ShipPlacements, cpuShipPlacements, player1Attacks, cpuAttacks);

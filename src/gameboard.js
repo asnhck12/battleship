@@ -63,8 +63,6 @@ export function placeShip(x, y, ship, direction, battleShipGrid, placedShipRecor
     }
 }
 
-// let totalSunk = 0;
-
 const startButton = document.getElementById("playButton");
 const gameLog = document.getElementById("gameLog");
 
@@ -93,14 +91,12 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord, player){
             }
         }
         else {
-            console.log("Hit!");
             gameLog.innerHTML = player + " has a hit!";
             return "Hit!";
         }
     }
     else {
         battleShipGrid[y][x]='X';
-        console.log("Missed!");
         gameLog.innerHTML = player + " has missed!";
         return "Missed!"
                 
