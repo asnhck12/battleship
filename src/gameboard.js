@@ -86,7 +86,6 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord, player){
                 return "All sunk";
             }
             else {
-                console.log(player + " has sunk the " + shipHit.shipDetails.name + " ship!");
                 gameLog.innerHTML = player + " has sunk the " + shipHit.shipDetails.name + " ship!";
             }
         }

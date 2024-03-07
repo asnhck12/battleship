@@ -57,8 +57,6 @@ function player1Turn() {
                         else if (columnsArray[j].id === "O") {
                             columnsArray[j].id = "X1";
                         }
-                        else {
-                             console.log ("Error")};
                     }});
                 } 
             }

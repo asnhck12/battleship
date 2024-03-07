@@ -31,7 +31,7 @@ export function player() {
 export function turn(x,y,playerBoard,shipPlacements,attacks,player) {
     const existingHit = attacks.find(hits => hits.X === x && hits.Y === y);
 
-    if (!existingHit) {
+    if (existingHit) {
         return "Already selected";
     }
     else {
