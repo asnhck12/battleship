@@ -28,7 +28,7 @@ export function player() {
 }
 
 //the player would take a turn, and it would either hit or miss
-export function turn(x,y,playerBoard,shipPlacements,attacks) {
+export function turn(x,y,playerBoard,shipPlacements,attacks,player) {
     const existingHit = attacks.find(hits => hits.X === x && hits.Y === y);
 
     if (existingHit) {
@@ -36,7 +36,7 @@ export function turn(x,y,playerBoard,shipPlacements,attacks) {
     }
     else {
         attacks.push({X: x, Y: y});
-        return receiveAttack(x,y,playerBoard,shipPlacements);
+        return receiveAttack(x,y,playerBoard,shipPlacements,player);
     }
 }
 
@@ -44,7 +44,7 @@ export function turn(x,y,playerBoard,shipPlacements,attacks) {
 export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShipPlacements,player1Attacks,cpuAttacks) {
     if (player === 'player1'){
         console.log("Player 1s turn!");
-        let cpuResult = turn(x,y,cpu,cpuShipPlacements,cpuAttacks);
+        let cpuResult = turn(x,y,cpu,cpuShipPlacements,cpuAttacks,player);
         console.log("P1 result: " + cpuResult);
         if (cpuResult === "All sunk") { 
             return "Player 1 wins!";
@@ -59,7 +59,7 @@ export function playerTurns(x,y,player,player1,cpu,player1ShipPlacements,cpuShip
     else if (player === 'cpu'){
         console.log("cpus's turn!");
         // setTimeout(() => {
-        let player1Result = turn(x,y,player1,player1ShipPlacements,player1Attacks);
+        let player1Result = turn(x,y,player1,player1ShipPlacements,player1Attacks,player);
         console.log("cpu result: " + player1Result);
         if (player1Result === "All sunk") { 
             return "CPU wins!";

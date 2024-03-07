@@ -69,7 +69,7 @@ const startButton = document.getElementById("playButton");
 const gameLog = document.getElementById("gameLog");
 
 
-export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
+export function receiveAttack(x,y, battleShipGrid, placedShipRecord, player){
     const shipHit = placedShipRecord.find(ship => {
         return ship.positions.some(position => position.X === x && position.Y === y);});
     
@@ -88,20 +88,20 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord){
                 return "All sunk";
             }
             else {
-                console.log("Your " + shipHit.shipDetails.name + " has sunk!");
-                gameLog.innerHTML = "Your " + shipHit.shipDetails.name + " has sunk!";
+                console.log(player + " has sunk the " + shipHit.shipDetails.name + " ship!");
+                gameLog.innerHTML = player + " has sunk the " + shipHit.shipDetails.name + " ship!";
             }
         }
         else {
             console.log("Hit!");
-            gameLog.innerHTML = "Hit!";
+            gameLog.innerHTML = player + " has a hit!";
             return "Hit!";
         }
     }
     else {
         battleShipGrid[y][x]='X';
         console.log("Missed!");
-        gameLog.innerHTML = "Missed!";
+        gameLog.innerHTML = player + " has missed!";
         return "Missed!"
                 
     }
