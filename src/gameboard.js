@@ -83,6 +83,7 @@ export function receiveAttack(x,y, battleShipGrid, placedShipRecord, player){
             if (allSunk(totalCount)) {
                 startButton.innerHTML = "Play Again!";
                 startButton.style.display = "block";
+                gameLog.innerHTML = player + " has Won!";
                 return "All sunk";
             }
             else {
