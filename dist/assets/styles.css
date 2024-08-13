@@ -1,7 +1,3 @@
-/* html, body, #main, #playArea, .boards {
-    height: 100%;
-} */
-
 html, body{
     margin: 0;
     height: 100%;
@@ -80,4 +76,21 @@ html, body{
 
 #gameLog {
     font-size: larger;
+}
+
+#footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#gitHubIcon img {
+    width: 40px;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
 }
