@@ -1,0 +1,96 @@
+html, body{
+    margin: 0;
+    height: 100%;
+}
+
+#main {
+    margin: 0;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 8fr 1fr;
+}
+
+#playArea {
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#board1, #board2 {
+    height: 100%;
+}
+
+.boards {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    gap: 0;
+    /* aspect-ratio: 1 / 1; */
+}
+
+.rows {
+    /* height: 100%; */
+    display: flex;
+    flex-direction: row;
+    border: 1px solid green;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+}
+
+.columns {
+    border: 1px solid blue;
+    width: 10%; 
+}
+
+#board1 #B {
+    background-color: blue;
+}
+
+#H1 {
+    background-color: green;
+}
+
+#X1 {
+    background-color: red;
+}
+
+#bottomSection {
+    display: grid;
+    align-items: center;
+    text-align: center;
+}
+
+#playButton {
+    margin: auto;
+    background-color: white;
+    border: 1px black solid;
+    font-size: larger;
+    width: 120px;
+    height: 30px;
+    align-items: center;
+}
+
+#gameLog {
+    font-size: larger;
+}
+
+#footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#gitHubIcon img {
+    width: 40px;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+}
